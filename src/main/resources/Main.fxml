@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml" alignment="CENTER" fx:controller="org.example.Controller.Controller"
+          prefHeight="400.0" prefWidth="500.0" hgap="10" vgap="10">
+    <Label text="Blocknumber:" GridPane.rowIndex="0"/>
+    <Label text="Blocksize:" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <TextField GridPane.rowIndex="1" text="1024"/>
+    <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" text="32"/>
+
+    <Label text="Associativity:" GridPane.rowIndex="3"/>
+    <Label text="Replacement:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <TextField GridPane.rowIndex="4" text="1"/>
+    <ComboBox GridPane.rowIndex="4" GridPane.columnIndex="1" value="FIFO">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="FIFO"/>
+                <String fx:value="LRU"/>
+                <String fx:value="Random"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <Label text="WriteHit:" GridPane.rowIndex="6"/>
+    <Label text="WriteMiss:" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+    <ComboBox GridPane.rowIndex="7" value="Write Back">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Write Back"/>
+                <String fx:value="Write Through"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <ComboBox GridPane.rowIndex="7" GridPane.columnIndex="1" value="No Write Allocate">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="No Write Allocate"/>
+                <String fx:value="Write Allocate"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <Button text="Start Simulation" GridPane.rowIndex="10"/>
+</GridPane>
