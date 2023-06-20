@@ -9,16 +9,17 @@
 
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml" alignment="CENTER" fx:controller="org.example.Controller.Controller"
-          prefHeight="400.0" prefWidth="500.0" hgap="10" vgap="10">
+          prefHeight="400.0" prefWidth="500.0" hgap="10" vgap="10" fx:id="GridPane">
+
     <Label text="Blocknumber:" GridPane.rowIndex="0"/>
     <Label text="Blocksize:" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-    <TextField GridPane.rowIndex="1" text="1024"/>
-    <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" text="32"/>
+    <TextField GridPane.rowIndex="1" text="1024" fx:id="BlockNumber"/>
+    <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" text="32" fx:id="BlockSize"/>
 
     <Label text="Associativity:" GridPane.rowIndex="3"/>
     <Label text="Replacement:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-    <TextField GridPane.rowIndex="4" text="1"/>
-    <ComboBox GridPane.rowIndex="4" GridPane.columnIndex="1" value="FIFO">
+    <TextField GridPane.rowIndex="4" text="1" fx:id="Associativity"/>
+    <ComboBox GridPane.rowIndex="4" GridPane.columnIndex="1" value="FIFO" fx:id="Replacement">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="FIFO"/>
@@ -30,7 +31,7 @@
 
     <Label text="WriteHit:" GridPane.rowIndex="6"/>
     <Label text="WriteMiss:" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-    <ComboBox GridPane.rowIndex="7" value="Write Back">
+    <ComboBox GridPane.rowIndex="7" value="Write Back" fx:id="WriteHit">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Write Back"/>
@@ -38,7 +39,7 @@
             </FXCollections>
         </items>
     </ComboBox>
-    <ComboBox GridPane.rowIndex="7" GridPane.columnIndex="1" value="No Write Allocate">
+    <ComboBox GridPane.rowIndex="7" GridPane.columnIndex="1" value="No Write Allocate" fx:id="WriteMiss">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="No Write Allocate"/>
@@ -47,5 +48,6 @@
         </items>
     </ComboBox>
 
-    <Button text="Start Simulation" GridPane.rowIndex="10"/>
+    <Button text="Start Simulation" GridPane.rowIndex="10" GridPane.columnIndex="1" onAction="#StartSimulation"/>
+    <Button text="Load File" GridPane.rowIndex="10" onAction="#LoadFile"/>
 </GridPane>
