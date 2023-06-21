@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import org.example.Model.FileLoader;
 import org.example.Model.Model;
 
 import java.io.File;
@@ -16,8 +15,6 @@ public class Controller {
     // Variables
     // Model
     private Model Model;
-    // FileLoader
-    private FileLoader FileLoader;
 
     // FilePath
     String FilePath;
@@ -44,12 +41,13 @@ public class Controller {
     private ComboBox WriteMiss;
 
     public void StartSimulation() {
-        Model = new Model(Integer.parseInt(BlockNumber.getText()), Integer.parseInt(BlockSize.getText()),
-                Integer.parseInt(Associativity.getText()), Replacement.getValue().toString(),
-                WriteHit.getValue().toString(), WriteMiss.getValue().toString());
+        if (FilePath != null) {
+            Model = new Model(Integer.parseInt(BlockNumber.getText()), Integer.parseInt(BlockSize.getText()),
+                    Integer.parseInt(Associativity.getText()), Replacement.getValue().toString(),
+                    WriteHit.getValue().toString(), WriteMiss.getValue().toString());
 
-        System.out.println(FilePath);
-        Model.StartSimulation();
+            Model.StartSimulation(FilePath);
+        }
     }
 
     public void LoadFile(ActionEvent actionEvent) {
@@ -64,7 +62,7 @@ public class Controller {
             FilePath = file.getPath();
         }
         catch (Exception ex) {
-
+            throw new RuntimeException(ex);
         }
     }
 }

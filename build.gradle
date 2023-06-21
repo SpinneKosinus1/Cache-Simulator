@@ -6,10 +6,13 @@ plugins {
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
-mainClassName = 'org.example.Main'
 
 repositories {
     mavenCentral()
+}
+
+application {
+    mainClassName = 'org.example.Main'
 }
 
 javafx {
