@@ -1,32 +1,71 @@
 package org.example.Model;
 
+import org.example.Model.CacheData.CacheData;
+import org.example.Model.CacheData.DataHandler;
+import org.example.Model.CacheData.LoadData;
+import org.example.Model.CacheData.SaveData;
+
 import java.util.List;
-import org.example.Model.CacheData;
 
 public class Model {
-    CacheData Cache;
+    // Classes
+    CacheData[] cacheData;
+    DataHandler dataHandler;
+
     // Variables
-    private int blocknumber, blocksize, associativity;
+    private int blockNumber, blockSize, associativity;
+    private int indexLength, offsetLength, tagLength;
     private String tag, index, offset;
 
-    private String replacment, writehit, writemiss;
+    private String replacment, writeHit, writeMiss;
 
-    private List<Boolean> CacheReadHit, CacheWriteHit, CacheEvictions;
+    private List<Boolean> cacheReadHit, cacheWriteHit, cacheEvictions;
+
+    // Getter
+    public CacheData GetCacheData(int position) { return cacheData[position]; }
+
+    // Setter
+    public void SetCacheData(int position, CacheData value) { cacheData[position] = value; }
 
     // Constructor
-    public Model(int blocknumber, int blocksize, int associativity, String replacment, String writehit, String writemiss) {
-        this.blocknumber = blocknumber;
-        this.blocksize = blocksize;
+    public Model(int blockNumber, int blockSize, int associativity, String replacment, String writeHit, String writeMiss) {
+        this.blockNumber = blockNumber;
+        this.blockSize = blockSize;
         this.associativity = associativity;
-        this.writemiss = writemiss;
-        this.writehit = writehit;
+        this.writeMiss = writeMiss;
+        this.writeHit = writeHit;
         this.replacment = replacment;
+    }
+
+    // Functions
+    private void CalcLength(String address) {
+        String tempAddress = "";
+
+        // Remove all whitespaces
+        address = address.replaceAll("\\s", "");
+
+        // Loop through every char in the line and separate the operation and the address
+        for (int i = 0; i < address.length(); i++) {
+            if (i == 1) {
+            } else if (1 < i && i < 10) {
+                tempAddress = tempAddress + address.charAt(i);
+            }
+        }
+
+        tempAddress = ConvertNumber.hexToBinary(tempAddress);
+
+        // Subdivide the length in index, offset and tag
+        indexLength = (int) (Math.log(blockNumber) / Math.log(2) / associativity);
+        offsetLength = (int) (Math.log(blockSize) / Math.log(2));
+        tagLength = tempAddress.length() - indexLength - offsetLength;
     }
 
     public void StartSimulation(String FilePath) {
         List<String> TraceFile = FileLoader.GetFileContent(FilePath);
-        Cache = new CacheData();
+        CalcLength(TraceFile.get(0));
+        cacheData = new CacheData[blockNumber];
 
+        long loopCounter = 0;
         for (String TraceLine : TraceFile) {
             int operation = 99;
             String address = "";
@@ -46,11 +85,6 @@ public class Model {
             // Transform the address from a hex number to a binary number
             address = ConvertNumber.hexToBinary(address);
 
-            // Subdivide the length in index, offset and tag
-            double indexLength = Math.log(blocknumber) / Math.log(2) / associativity;
-            double offsetLength = Math.log(blocksize) / Math.log(2);
-            double tagLength = address.length() - indexLength - offsetLength;
-
             // Subdivide the address in index, offset and tag
             tag = "";
             index = "";
@@ -65,11 +99,16 @@ public class Model {
                 }
             }
 
-            if (operation == 0) { // Load Data
-                Cache.LoadData(tag, index, associativity, replacment);
+            if (operation == 0) { // Execute, when loading data
+                dataHandler = new LoadData();
+                dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment, writeHit, writeMiss);
             }
-            else if (operation == 1) { // Save Data
+            if (operation == 1) {
+                dataHandler = new SaveData();
+                dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment, writeHit, writeMiss);
             }
+
+            ++loopCounter;
         }
     }
 }

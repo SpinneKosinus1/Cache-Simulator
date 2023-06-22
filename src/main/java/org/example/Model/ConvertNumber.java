@@ -64,18 +64,5 @@ public class ConvertNumber {
         return binary;
     }
 
-    public static int binaryToDecimal(String binary) {
-        long lbinary = Integer.parseInt(binary);
-        int decimalNumber = 0, i = 0;
-        long remainder;
-
-        while (lbinary != 0) {
-            remainder = lbinary % 10;
-            lbinary /= 10;
-            decimalNumber += remainder * Math.pow(2, i);
-            ++i;
-        }
-
-        return decimalNumber;
-    }
+    public static long binaryToDecimal(String binary) { return Long.parseLong(binary, 2); }
 }
