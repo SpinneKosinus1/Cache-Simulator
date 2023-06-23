@@ -64,5 +64,5 @@ public class ConvertNumber {
         return binary;
     }
 
-    public static long binaryToDecimal(String binary) { return Long.parseLong(binary, 2); }
+    public static int binaryToDecimal(String binary) { return Integer.parseInt(binary, 2); }
 }
