@@ -1,16 +1,13 @@
 package org.example.Model;
 
-import org.example.Model.CacheData.CacheData;
-import org.example.Model.CacheData.DataHandler;
-import org.example.Model.CacheData.LoadData;
-import org.example.Model.CacheData.SaveData;
+import org.example.Model.CacheData.*;
 
 import java.util.List;
 
 public class Model {
     // Classes
-    CacheData[] cacheData;
     DataHandler dataHandler;
+    Cache cache;
 
     // Variables
     private int blockNumber, blockSize, associativity;
@@ -18,14 +15,6 @@ public class Model {
     private String tag, index, offset;
 
     private String replacment, writeHit, writeMiss;
-
-    private List<Boolean> cacheReadHit, cacheWriteHit, cacheEvictions;
-
-    // Getter
-    public CacheData GetCacheData(int position) { return cacheData[position]; }
-
-    // Setter
-    public void SetCacheData(int position, CacheData value) { cacheData[position] = value; }
 
     // Constructor
     public Model(int blockNumber, int blockSize, int associativity, String replacment, String writeHit, String writeMiss) {
@@ -55,7 +44,8 @@ public class Model {
         tempAddress = ConvertNumber.hexToBinary(tempAddress);
 
         // Subdivide the length in index, offset and tag
-        indexLength = (int) (Math.log(blockNumber) / Math.log(2) / associativity);
+        int newBlockNumber = blockNumber / associativity;
+        indexLength = (int) (Math.log(newBlockNumber) / Math.log(2));
         offsetLength = (int) (Math.log(blockSize) / Math.log(2));
         tagLength = tempAddress.length() - indexLength - offsetLength;
     }
@@ -63,7 +53,7 @@ public class Model {
     public void StartSimulation(String FilePath) {
         List<String> TraceFile = FileLoader.GetFileContent(FilePath);
         CalcLength(TraceFile.get(0));
-        cacheData = new CacheData[blockNumber];
+        cache = new Cache(blockNumber);
 
         long loopCounter = 0;
         for (String TraceLine : TraceFile) {
@@ -101,14 +91,17 @@ public class Model {
 
             if (operation == 0) { // Execute, when loading data
                 dataHandler = new LoadData();
-                dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment, writeHit, writeMiss);
+                cache = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
+                        writeHit, writeMiss, cache);
             }
             if (operation == 1) {
                 dataHandler = new SaveData();
-                dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment, writeHit, writeMiss);
+                cache = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
+                        writeHit, writeMiss, cache);
             }
 
             ++loopCounter;
         }
+        System.out.println(cache.GetCacheReadHitPercentage());
     }
 }
