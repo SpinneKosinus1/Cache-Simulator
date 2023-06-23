@@ -54,8 +54,8 @@ public class Model {
         List<String> TraceFile = FileLoader.GetFileContent(FilePath);
         CalcLength(TraceFile.get(0));
         cache = new Cache(blockNumber);
-
         long loopCounter = 0;
+
         for (String TraceLine : TraceFile) {
             int operation = 99;
             String address = "";

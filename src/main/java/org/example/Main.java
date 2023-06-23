@@ -1,7 +1,6 @@
 package org.example;
 
-import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
+import atlantafx.base.theme.NordDark;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +12,7 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        Application.setUserAgentStylesheet(new NordDark().getUserAgentStylesheet());
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main.fxml")));
         primaryStage.setTitle("Cache Simulator");
         primaryStage.setScene(new Scene(root));

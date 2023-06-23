@@ -27,12 +27,12 @@ public class Cache {
     // Setter
     public void SetCacheBlock(int index, CacheData cacheData) { this.cacheData[index] = cacheData; }
 
-
+    //
     public void AddCacheReadHit(Boolean cacheHit) { cacheReadHit.add(cacheHit); }
     public double GetCacheReadHitPercentage() {
         int cacheHitNumber = 0;
-        for (int i = 0; i < cacheReadHit.size(); i++) {
-            if (cacheReadHit.get(i)) {
+        for (Boolean aBoolean : cacheReadHit) {
+            if (aBoolean) {
                 ++cacheHitNumber;
             }
         }
