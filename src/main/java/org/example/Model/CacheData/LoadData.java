@@ -24,10 +24,16 @@ public class LoadData extends DataHandler {
         // Check if there is free space to store the values
         for (int i = 0; i < associativity; i++) {
             if (cache.GetCacheBlock((iIndex * associativity) + i).GetTag() == 0) {
-                return getCache(loopCounter, associativity, cache, iIndex, iTag, i);
+                cache.GetCacheBlock((iIndex * associativity) + i).SetTag(iTag);
+                cache.GetCacheBlock((iIndex * associativity) + i).SetValidBit(1);
+                cache.GetCacheBlock((iIndex * associativity) + i).SetCreatedCount(loopCounter);
+                cache.GetCacheBlock((iIndex * associativity) + i).SetLastTimeUsed(loopCounter);
+                cache.AddCacheReadHit(false);
+                return cache;
             }
         }
 
+        // Replace Cache Data
         if (associativity == 1) {
             return getCache(loopCounter, associativity, cache, iIndex, iTag, 0);
         }
@@ -69,6 +75,7 @@ public class LoadData extends DataHandler {
         cache.GetCacheBlock((iIndex * associativity) + position).SetCreatedCount(loopCounter);
         cache.GetCacheBlock((iIndex * associativity) + position).SetLastTimeUsed(loopCounter);
         cache.AddCacheReadHit(false);
+        cache.AddCacheEvictions();
         return cache;
     }
 }

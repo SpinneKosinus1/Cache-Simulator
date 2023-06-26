@@ -10,11 +10,11 @@ public class Model {
     Cache cache;
 
     // Variables
-    private int blockNumber, blockSize, associativity;
+    private final int blockNumber, blockSize, associativity;
     private int indexLength, offsetLength, tagLength;
     private String tag, index, offset;
 
-    private String replacment, writeHit, writeMiss;
+    private final String replacment, writeHit, writeMiss;
 
     // Constructor
     public Model(int blockNumber, int blockSize, int associativity, String replacment, String writeHit, String writeMiss) {
@@ -35,8 +35,7 @@ public class Model {
 
         // Loop through every char in the line and separate the operation and the address
         for (int i = 0; i < address.length(); i++) {
-            if (i == 1) {
-            } else if (1 < i && i < 10) {
+            if (1 < i && i < 10) {
                 tempAddress = tempAddress + address.charAt(i);
             }
         }
@@ -50,7 +49,7 @@ public class Model {
         tagLength = tempAddress.length() - indexLength - offsetLength;
     }
 
-    public void StartSimulation(String FilePath) {
+    public Cache StartSimulation(String FilePath) {
         List<String> TraceFile = FileLoader.GetFileContent(FilePath);
         CalcLength(TraceFile.get(0));
         cache = new Cache(blockNumber);
@@ -102,6 +101,6 @@ public class Model {
 
             ++loopCounter;
         }
-        System.out.println(cache.GetCacheReadHitPercentage());
+        return cache;
     }
 }

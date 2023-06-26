@@ -8,11 +8,14 @@ public class Cache {
     CacheData[] cacheData;
 
     // The List
-    private static List<Boolean> cacheReadHit, cacheWriteHit, cacheEvictions;
+    private static List<Boolean> cacheReadHit, cacheWriteHit;
+    private int cacheEvictions;
 
     public Cache(int blockNumber) {
         cacheData = new CacheData[blockNumber];
-        cacheReadHit = new ArrayList<Boolean>();
+        cacheReadHit = new ArrayList<>();
+        cacheWriteHit = new ArrayList<>();
+        cacheEvictions = 0;
 
         for (int i = 0; i < blockNumber; i++) {
             CacheData CacheData = new CacheData();
@@ -38,4 +41,18 @@ public class Cache {
         }
         return ((double) cacheHitNumber / cacheReadHit.size()) * 100;
     }
+
+    public void AddCacheWriteHit(Boolean cacheHit) { cacheWriteHit.add(cacheHit); }
+    public double GetCacheWriteHitPercentage() {
+        int cacheHitNumber = 0;
+        for (Boolean aBoolean : cacheWriteHit) {
+            if (aBoolean) {
+                ++cacheHitNumber;
+            }
+        }
+        return ((double) cacheHitNumber / cacheWriteHit.size()) * 100;
+    }
+
+    public void AddCacheEvictions() { ++cacheEvictions; }
+    public int GetCacheEvictions() { return cacheEvictions; }
 }

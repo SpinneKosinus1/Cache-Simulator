@@ -1,6 +1,7 @@
 package org.example;
 
-import atlantafx.base.theme.NordDark;
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,14 +13,15 @@ import java.util.Objects;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Application.setUserAgentStylesheet(new NordDark().getUserAgentStylesheet());
+        Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheet());
+        Application.setUserAgentStylesheet(new CupertinoDark().getUserAgentStylesheet());
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Main.fxml")));
         primaryStage.setTitle("Cache Simulator");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
-    public static void main(String args[]){
+    public static void main(String[] args){
         launch(args);
     }
 }

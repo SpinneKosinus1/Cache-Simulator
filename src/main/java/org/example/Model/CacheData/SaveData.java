@@ -17,12 +17,12 @@ public class SaveData extends DataHandler {
                 if (cache.GetCacheBlock((iIndex * associativity) + i).GetTag() == iTag &&
                         cache.GetCacheBlock((iIndex * associativity) + i).GetValidBit() == 1) {
                     cache.GetCacheBlock((iIndex * associativity) + i).SetLastTimeUsed(loopCounter);
-                    cache.AddCacheReadHit(true);
+                    cache.AddCacheWriteHit(true);
                     return cache;
                 }
             }
 
-            cache.AddCacheReadHit(false);
+            cache.AddCacheWriteHit(false);
             return cache;
         }
         else if (writeMiss.equals("Write Allocate")) {
@@ -31,7 +31,7 @@ public class SaveData extends DataHandler {
                 if (cache.GetCacheBlock((iIndex * associativity) + i).GetTag() == iTag &&
                         cache.GetCacheBlock((iIndex * associativity) + i).GetValidBit() == 1) {
                     cache.GetCacheBlock((iIndex * associativity) + i).SetLastTimeUsed(loopCounter);
-                    cache.AddCacheReadHit(true);
+                    cache.AddCacheWriteHit(true);
                     return cache;
                 }
             }
@@ -39,7 +39,12 @@ public class SaveData extends DataHandler {
             // Check if there is free space to store the values
             for (int i = 0; i < associativity; i++) {
                 if (cache.GetCacheBlock((iIndex * associativity) + i).GetTag() == 0) {
-                    return getCache(loopCounter, associativity, cache,writeHit, iIndex, iTag, i);
+                    cache.GetCacheBlock((iIndex * associativity) + i).SetTag(iTag);
+                    cache.GetCacheBlock((iIndex * associativity) + i).SetValidBit(1);
+                    cache.GetCacheBlock((iIndex * associativity) + i).SetCreatedCount(loopCounter);
+                    cache.GetCacheBlock((iIndex * associativity) + i).SetLastTimeUsed(loopCounter);
+                    cache.AddCacheReadHit(false);
+                    return cache;
                 }
             }
 
@@ -86,7 +91,8 @@ public class SaveData extends DataHandler {
         if (writeHit.equals("Write Back")) { cache.GetCacheBlock((iIndex * associativity) + position).SetDirtyBit(1);}
         cache.GetCacheBlock((iIndex * associativity) + position).SetCreatedCount(loopCounter);
         cache.GetCacheBlock((iIndex * associativity) + position).SetLastTimeUsed(loopCounter);
-        cache.AddCacheReadHit(false);
+        cache.AddCacheWriteHit(false);
+        cache.AddCacheEvictions();
         return cache;
     }
 }
