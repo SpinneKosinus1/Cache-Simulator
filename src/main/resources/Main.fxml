@@ -5,66 +5,72 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.*?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml" alignment="CENTER" fx:controller="org.example.Controller.Controller"
-          prefHeight="500.0" prefWidth="800.0" hgap="20" vgap="10" fx:id="GridPane">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.Controller.MainController"
+            prefHeight="720.0" prefWidth="1280.0" fx:id="borderPane">
 
-    <GridPane GridPane.rowIndex="0" hgap="20" vgap="10">
-        <Label text="Input" GridPane.rowIndex="0"/>
-        <Label text="Blocknumber:" GridPane.rowIndex="2"/>
-        <Label text="Blocksize:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-        <TextField GridPane.rowIndex="3" text="1024" fx:id="BlockNumber"/>
-        <TextField GridPane.rowIndex="3" GridPane.columnIndex="1" text="32" fx:id="BlockSize"/>
+    <top>
+        <ToolBar>
+            <Button text="Run Simulation" onAction="#ShowNewSimulationDialog"/>
+        </ToolBar>
+    </top>
 
-        <Label text="Associativity:" GridPane.rowIndex="5"/>
-        <Label text="Replacement:" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-        <TextField GridPane.rowIndex="6" text="1" fx:id="Associativity"/>
-        <ComboBox GridPane.rowIndex="6" GridPane.columnIndex="1" value="FIFO" fx:id="Replacement">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="FIFO"/>
-                    <String fx:value="LRU"/>
-                    <String fx:value="Random"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
+    <center>
+        <TableView>
+            <columns>
+                <TableColumn text="File Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test2"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Block Number">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test2"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Block Size">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Associativity">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Replacement">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Write Hit">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Write Miss">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Cache Read Hit Rate">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Cache Write Hit Rate">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Cache Evictions">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="Test3"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </center>
 
-        <Label text="WriteHit:" GridPane.rowIndex="8"/>
-        <Label text="WriteMiss:" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-        <ComboBox GridPane.rowIndex="9" value="Write Back" fx:id="WriteHit">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Write Back"/>
-                    <String fx:value="Write Through"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
-        <ComboBox GridPane.rowIndex="9" GridPane.columnIndex="1" value="No Write Allocate" fx:id="WriteMiss">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="No Write Allocate"/>
-                    <String fx:value="Write Allocate"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
-
-        <Button text="Load Trace File" GridPane.rowIndex="12" onAction="#LoadFile"/>
-    </GridPane>
-
-    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="4" hgap="20" vgap="10">
-        <Label text="Output" GridPane.rowIndex="0"/>
-
-        <Label text="Cache Read Hit Rate:" GridPane.rowIndex="2"/>
-        <TextField GridPane.rowIndex="3" fx:id="CacheRead" disable="true"/>
-
-        <Label text="Cache Write Hit Rate:" GridPane.rowIndex="5"/>
-        <TextField GridPane.rowIndex="6" fx:id="CacheWrite" disable="true"/>
-
-        <Label text="Cache Evictions:" GridPane.rowIndex="8"/>
-        <TextField GridPane.rowIndex="9" fx:id="CacheEviction" disable="true"/>
-
-        <Button text="Export to File" GridPane.rowIndex="12" onAction="#ExportFile" disable="true" fx:id="export"/>
-    </GridPane>
-
-    <Button text="Start Simulation" GridPane.rowIndex="5" onAction="#StartSimulation"/>
-</GridPane>
+</BorderPane>
