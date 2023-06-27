@@ -21,52 +21,52 @@
             <columns>
                 <TableColumn text="File Name">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test2"/>
+                        <PropertyValueFactory property="fileName"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Block Number">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test2"/>
+                        <PropertyValueFactory property="blockNumber"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Block Size">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="blockSize"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Associativity">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="associativity"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Replacement">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="replacement"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Write Hit">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="writeHit"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Write Miss">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="writeMiss"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Cache Read Hit Rate">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="cacheReadHitRate"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Cache Write Hit Rate">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="cacheReadMissRate"/>
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn text="Cache Evictions">
                     <cellValueFactory>
-                        <PropertyValueFactory property="Test3"/>
+                        <PropertyValueFactory property="cacheEvictions"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>

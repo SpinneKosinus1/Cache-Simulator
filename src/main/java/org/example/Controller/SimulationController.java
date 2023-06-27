@@ -11,12 +11,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.example.Model.CacheData.Cache;
 import org.example.Model.Model;
+import org.example.Model.Result;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -62,7 +65,7 @@ public class SimulationController {
         }
     }
 
-    public void ProcessResults() {
+    public Result ProcessResults() {
         if (filePath != null) {
             Model Model = new Model(Integer.parseInt(BlockNumber.getText()), Integer.parseInt(BlockSize.getText()),
                     Integer.parseInt(Associativity.getText()), Replacement.getValue().toString(),
@@ -72,13 +75,23 @@ public class SimulationController {
 
             int temp = (int) (cache.GetCacheReadHitPercentage() * 100);
             double CacheReadHit = ((double) temp) / 100;
+            String cacheReadHit = CacheReadHit + "%";
 
             temp = (int) (cache.GetCacheWriteHitPercentage() * 100);
             double CacheWriteHit = ((double) temp) / 100;
+            String cacheWriteHit = CacheWriteHit + "%";
 
-            System.out.println(String.valueOf(CacheReadHit) + "%");
-            System.out.println(String.valueOf(CacheWriteHit) + "%");
-            System.out.println(String.valueOf(cache.GetCacheEvictions()));
+            String cacheEvictions = String.valueOf(cache.GetCacheEvictions());
+
+            System.out.println(cacheReadHit);
+            System.out.println(cacheWriteHit);
+            System.out.println(cacheEvictions);
+
+            Result result = new Result("Test", BlockNumber.getText(), BlockSize.getText(), Associativity.getText(),
+                    Replacement.getValue().toString(), WriteHit.getValue().toString(), WriteMiss.getValue().toString(),
+                    cacheReadHit, cacheWriteHit, cacheEvictions);
+            return result;
         }
+        return null;
     }
 }

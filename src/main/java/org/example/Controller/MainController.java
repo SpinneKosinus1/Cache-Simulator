@@ -11,21 +11,31 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.example.Model.CacheData.Cache;
 import org.example.Model.Model;
+import org.example.Model.Result;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 public class MainController {
+    private static List<Result> Results;
+    @FXML
+    public void initialize() {
+        Results = new ArrayList<>();
+
+    }
 
     SimulationController controller;
 
     @FXML
     private BorderPane borderPane;
+
 
     @FXML
     public void ShowNewSimulationDialog() {
@@ -47,7 +57,7 @@ public class MainController {
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             controller = fxmlloader.getController();
-            controller.ProcessResults();
+            Results.add(controller.ProcessResults());
             System.out.println("OK pressed");
         }
         else {
