@@ -87,6 +87,7 @@ public class SimulationController {
             System.out.println(cacheWriteHit);
             System.out.println(cacheEvictions);
 
+
             Result result = new Result("Test", BlockNumber.getText(), BlockSize.getText(), Associativity.getText(),
                     Replacement.getValue().toString(), WriteHit.getValue().toString(), WriteMiss.getValue().toString(),
                     cacheReadHit, cacheWriteHit, cacheEvictions);
