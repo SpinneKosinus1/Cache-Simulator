@@ -1,6 +1,11 @@
 package org.example.Model;
 
 import org.example.Model.CacheData.*;
+import org.example.Model.CacheHandler.DataHandler;
+import org.example.Model.CacheHandler.LoadData;
+import org.example.Model.CacheHandler.SaveData;
+import org.example.Model.Utilities.ConvertNumber;
+import org.example.Model.Utilities.FileLoader;
 
 import java.util.List;
 
@@ -12,7 +17,6 @@ public class Model {
     // Variables
     private final int blockNumber, blockSize, associativity;
     private int indexLength, offsetLength, tagLength;
-    private String tag, index, offset;
 
     private final String replacment, writeHit, writeMiss;
 
@@ -52,7 +56,8 @@ public class Model {
     public Cache StartSimulation(String FilePath) {
         List<String> TraceFile = FileLoader.GetFileContent(FilePath);
         CalcLength(TraceFile.get(0));
-        cache = new Cache(blockNumber);
+        cache = new Cache((blockNumber / associativity), associativity);
+        String tag, index, offset;
         long loopCounter = 0;
 
         for (String TraceLine : TraceFile) {

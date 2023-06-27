@@ -17,57 +17,26 @@
     </top>
 
     <center>
-        <TableView>
+        <TableView fx:id="tableView">
             <columns>
-                <TableColumn text="File Name">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="fileName"/>
-                    </cellValueFactory>
+                <TableColumn text="File" fx:id="fileName"/>
+                <TableColumn text="Block Number" fx:id="blockNumber">
                 </TableColumn>
-                <TableColumn text="Block Number">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="blockNumber"/>
-                    </cellValueFactory>
+                <TableColumn text="Block Size" fx:id="blockSize" prefWidth="100">
                 </TableColumn>
-                <TableColumn text="Block Size">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="blockSize"/>
-                    </cellValueFactory>
+                <TableColumn text="Associativity" fx:id="associativity">
                 </TableColumn>
-                <TableColumn text="Associativity">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="associativity"/>
-                    </cellValueFactory>
+                <TableColumn text="Replacement" fx:id="replacement">
                 </TableColumn>
-                <TableColumn text="Replacement">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="replacement"/>
-                    </cellValueFactory>
+                <TableColumn text="Write Hit" fx:id="writeHit">
                 </TableColumn>
-                <TableColumn text="Write Hit">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="writeHit"/>
-                    </cellValueFactory>
+                <TableColumn text="Write Miss" fx:id="writeMiss">
                 </TableColumn>
-                <TableColumn text="Write Miss">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="writeMiss"/>
-                    </cellValueFactory>
+                <TableColumn text="Cache Read Hit Rate" fx:id="cacheReadHitRate">
                 </TableColumn>
-                <TableColumn text="Cache Read Hit Rate">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="cacheReadHitRate"/>
-                    </cellValueFactory>
+                <TableColumn text="Cache Write Hit Rate" fx:id="cacheWriteHitRate">
                 </TableColumn>
-                <TableColumn text="Cache Write Hit Rate">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="cacheReadMissRate"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="Cache Evictions">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="cacheEvictions"/>
-                    </cellValueFactory>
+                <TableColumn text="Cache Evictions" fx:id="cacheEvictions">
                 </TableColumn>
             </columns>
         </TableView>

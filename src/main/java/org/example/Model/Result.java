@@ -3,12 +3,17 @@ package org.example.Model;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Result {
-    SimpleStringProperty fileName;
-    SimpleStringProperty blockNumber, blockSize, associativity;
-    SimpleStringProperty replacement, writeHit, writeMiss;
+    private SimpleStringProperty fileName;
+    private SimpleStringProperty blockNumber;
+    private SimpleStringProperty blockSize;
+    private SimpleStringProperty associativity;
+    private SimpleStringProperty replacement;
+    private SimpleStringProperty writeHit;
+    private SimpleStringProperty writeMiss;
 
-    SimpleStringProperty cacheReadHitRate, cacheWriteHitRate;
-    SimpleStringProperty cacheEvictions;
+    private SimpleStringProperty cacheReadHitRate;
+    private SimpleStringProperty cacheWriteHitRate;
+    private SimpleStringProperty cacheEvictions;
 
     public Result(String fileName, String blockNumber, String blockSize, String associativity, String replacment,
                   String writeHit, String writeMiss, String cacheReadHitRate, String cacheWriteHitRate, String cacheEvictions) {
@@ -25,14 +30,17 @@ public class Result {
     }
 
     // Getter
-    SimpleStringProperty GetFileName() { return fileName; }
-    SimpleStringProperty GetBlockNumber() { return blockNumber; }
-    SimpleStringProperty GetBlockSize() { return blockSize; }
-    SimpleStringProperty GetAssociativity() { return associativity; }
-    SimpleStringProperty GetReplacement() { return replacement; }
-    SimpleStringProperty GetWriteHit() { return writeHit; }
-    SimpleStringProperty GetWriteMiss() { return writeMiss; }
-    SimpleStringProperty GetCacheReadHitRate() { return cacheReadHitRate; }
-    SimpleStringProperty GetCacheWriteHitRate() { return cacheWriteHitRate; }
-    SimpleStringProperty GetcacheEvictions() { return cacheEvictions; }
+    public String GetFileName() { return fileName.get(); }
+    public String GetBlockNumber() { return blockNumber.get(); }
+    public String GetBlockSize() { return blockSize.get(); }
+    public String GetAssociativity() { return associativity.get(); }
+    public String GetReplacement() { return replacement.get(); }
+    public String GetWriteHit() { return writeHit.get(); }
+    public String GetWriteMiss() { return writeMiss.get(); }
+    public String GetCacheReadHitRate() { return cacheReadHitRate.get(); }
+    public String GetCacheWriteHitRate() { return cacheWriteHitRate.get(); }
+    public String GetCacheEvictions() { return cacheEvictions.get(); }
+
+    // Setter
+    public void SetFileName(String fileName) { this.fileName = new SimpleStringProperty(fileName); }
 }

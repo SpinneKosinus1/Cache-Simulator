@@ -1,33 +1,67 @@
 package org.example.Controller;
 
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Window;
-import org.example.Model.CacheData.Cache;
-import org.example.Model.Model;
 import org.example.Model.Result;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class MainController {
-    private static List<Result> Results;
     @FXML
-    public void initialize() {
-        Results = new ArrayList<>();
+    private TableColumn<Result, String> fileName;
+
+    @FXML
+    private TableColumn<Result, String> blockNumber;
+
+    @FXML
+    private TableColumn<Result, String> blockSize;
+
+    @FXML
+    private TableColumn<Result, String> associativity;
+
+    @FXML
+    private TableColumn<Result, String> replacement;
+
+    @FXML
+    private TableColumn<Result, String> writeHit;
+
+    @FXML
+    private TableColumn<Result, String> writeMiss;
+
+    @FXML
+    private TableColumn<Result, String> cacheReadHitRate;
+
+    @FXML
+    private TableColumn<Result, String> cacheWriteHitRate;
+
+    @FXML
+    private TableColumn<Result, String> cacheEvictions;
+
+    @FXML
+    private TableView<Result> tableView;
+
+    @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        fileName.setCellValueFactory(new PropertyValueFactory<Result, String>("fileName"));
+        blockNumber.setCellValueFactory(new PropertyValueFactory<Result, String>("blockNumber"));
+        blockSize.setCellValueFactory(new PropertyValueFactory<Result, String>("blockSize"));
+        associativity.setCellValueFactory(new PropertyValueFactory<Result, String>("associativity"));
+        replacement.setCellValueFactory(new PropertyValueFactory<Result, String>("replacement"));
+        writeHit.setCellValueFactory(new PropertyValueFactory<Result, String>("writeHit"));
+        writeMiss.setCellValueFactory(new PropertyValueFactory<Result, String>("writeMiss"));
+        cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheReadHitRate"));
+        cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheReadMissRate"));
+        cacheEvictions.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheEvictions"));
 
     }
 
@@ -36,6 +70,11 @@ public class MainController {
     @FXML
     private BorderPane borderPane;
 
+    private void AddToTable(Result result) {
+        ObservableList<Result> results = FXCollections.observableArrayList(result);
+        results.add(result);
+        tableView.setItems(results);
+    }
 
     @FXML
     public void ShowNewSimulationDialog() {
@@ -57,7 +96,8 @@ public class MainController {
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             controller = fxmlloader.getController();
-            Results.add(controller.ProcessResults());
+            Result result1 = controller.ProcessResults();
+            AddToTable(result1);
             System.out.println("OK pressed");
         }
         else {

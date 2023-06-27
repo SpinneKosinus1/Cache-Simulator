@@ -1,4 +1,4 @@
-package org.example.Model;
+package org.example.Model.Utilities;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -5,30 +5,26 @@ import java.util.List;
 
 public class Cache {
     // Variables
-    CacheData[] cacheData;
+    List<CacheSet> cache;
 
     // The List
     private static List<Boolean> cacheReadHit, cacheWriteHit;
     private int cacheEvictions;
 
-    public Cache(int blockNumber) {
-        cacheData = new CacheData[blockNumber];
+    public Cache(int index, int associativity) {
+        cache = new ArrayList<>();
         cacheReadHit = new ArrayList<>();
         cacheWriteHit = new ArrayList<>();
         cacheEvictions = 0;
 
-        for (int i = 0; i < blockNumber; i++) {
-            CacheData CacheData = new CacheData();
-            cacheData[i] = CacheData;
+        for (int i = 0; i < index; i++) {
+            CacheSet cacheSet = new CacheSet(associativity);
+            cache.add(cacheSet);
         }
     }
 
     // Getter
-    public CacheData GetCacheBlock(int index) { return cacheData[index]; }
-    public int GetCacheSize() { return cacheData.length; }
-
-    // Setter
-    public void SetCacheBlock(int index, CacheData cacheData) { this.cacheData[index] = cacheData; }
+    public CacheSet GetCacheSet(int index) { return cache.get(index); }
 
     //
     public void AddCacheReadHit(Boolean cacheHit) { cacheReadHit.add(cacheHit); }
