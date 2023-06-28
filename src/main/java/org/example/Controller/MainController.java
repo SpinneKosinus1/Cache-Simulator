@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    @FXML private Button exportButton;
     private ObservableList<Result> tableResult = FXCollections.observableArrayList();
 
     @FXML private TableView<Result> tableView;
@@ -91,7 +92,7 @@ public class MainController implements Initializable {
     public void ExportToExcel(ActionEvent actionEvent) {
        Writer writer = null;
         try {
-            File file = new File("/media/tobias/Arbeitsplatz/Projekte/Cache-Simulator/Person.csv");
+            File file = new File("/CacheResults.csv");
             writer = new BufferedWriter(new FileWriter(file));
 
             String text = "File Name" + "," + "Block Number" + "," + "Block Size" + "," + "Associativity" + "," + "Replacement"
@@ -101,7 +102,7 @@ public class MainController implements Initializable {
             for (Result results : tableResult) {
                 text = results.getFileName() + "," + results.getBlockNumber() + "," + results.getBlockSize() + "," + results.getAssociativity()
                         + "," + results.getReplacement() + "," + results.getWriteHit() + "," + results.getWriteMiss() + "," + results.getCacheReadHitRate()
-                        + "," + results.getCacheWriteHitRate() + "," + results.getCacheEvictions();
+                        + "," + results.getCacheWriteHitRate() + "," + results.getCacheEvictions() + "\n";
                 writer.write(text);
             }
         } catch (Exception ex) {
@@ -121,5 +122,6 @@ public class MainController implements Initializable {
     private void AddToTable(Result result) {
         tableResult.add(result);
         tableView.setItems(tableResult);
+        exportButton.setDisable(false);
     }
 }

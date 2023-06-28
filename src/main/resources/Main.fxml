@@ -13,7 +13,7 @@
     <top>
         <ToolBar>
             <Button text="Run Simulation" onAction="#ShowNewSimulationDialog"/>
-            <Button text="Export Results" onAction="#ExportToExcel"/>
+            <Button text="Export Results" onAction="#ExportToExcel" disable="true" fx:id="exportButton"/>
         </ToolBar>
     </top>
 
