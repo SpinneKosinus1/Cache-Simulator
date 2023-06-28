@@ -15,13 +15,13 @@
         <GridPane vgap="10" hgap="10" alignment="CENTER">
             <Label text="Blocknumber:" GridPane.rowIndex="2"/>
             <Label text="Blocksize:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-            <TextField GridPane.rowIndex="3" text="1024" fx:id="BlockNumber"/>
-            <TextField GridPane.rowIndex="3" GridPane.columnIndex="1" text="32" fx:id="BlockSize"/>
+            <TextField GridPane.rowIndex="3" text="32" fx:id="BlockNumber" prefWidth="200"/>
+            <TextField GridPane.rowIndex="3" GridPane.columnIndex="1" text="8" fx:id="BlockSize" prefWidth="200"/>
 
             <Label text="Associativity:" GridPane.rowIndex="5"/>
             <Label text="Replacement:" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-            <TextField GridPane.rowIndex="6" text="1" fx:id="Associativity"/>
-            <ComboBox GridPane.rowIndex="6" GridPane.columnIndex="1" value="FIFO" fx:id="Replacement">
+            <TextField GridPane.rowIndex="6" text="1" fx:id="Associativity" prefWidth="200"/>
+            <ComboBox GridPane.rowIndex="6" GridPane.columnIndex="1" value="FIFO" fx:id="Replacement" prefWidth="200">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="FIFO"/>
@@ -33,7 +33,7 @@
 
             <Label text="WriteHit:" GridPane.rowIndex="8"/>
             <Label text="WriteMiss:" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-            <ComboBox GridPane.rowIndex="9" value="Write Back" fx:id="WriteHit">
+            <ComboBox GridPane.rowIndex="9" value="Write Back" fx:id="WriteHit" prefWidth="200">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Write Back"/>
@@ -41,7 +41,7 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <ComboBox GridPane.rowIndex="9" GridPane.columnIndex="1" value="No Write Allocate" fx:id="WriteMiss">
+            <ComboBox GridPane.rowIndex="9" GridPane.columnIndex="1" value="Write Allocate" fx:id="WriteMiss" prefWidth="200">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="No Write Allocate"/>

@@ -62,7 +62,6 @@ public class MainController {
         cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheReadHitRate"));
         cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheReadMissRate"));
         cacheEvictions.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheEvictions"));
-
     }
 
     SimulationController controller;
@@ -98,10 +97,6 @@ public class MainController {
             controller = fxmlloader.getController();
             Result result1 = controller.ProcessResults();
             AddToTable(result1);
-            System.out.println("OK pressed");
-        }
-        else {
-            System.out.println("Cancel pressed");
         }
     }
 }
