@@ -13,6 +13,7 @@
     <top>
         <ToolBar>
             <Button text="Run Simulation" onAction="#ShowNewSimulationDialog"/>
+            <Button text="Export Results" onAction="#ExportToExcel"/>
         </ToolBar>
     </top>
 

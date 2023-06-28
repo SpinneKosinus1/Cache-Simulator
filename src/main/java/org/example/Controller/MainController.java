@@ -1,9 +1,8 @@
 package org.example.Controller;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.SimpleSelector;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import org.example.Model.Result;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -20,38 +19,27 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     private ObservableList<Result> tableResult = FXCollections.observableArrayList();
 
-    @FXML
-    private TableView<Result> tableView;
+    @FXML private TableView<Result> tableView;
 
-    @FXML
-    private TableColumn<Result, String> fileName;
+    @FXML private TableColumn<Result, String> fileName;
 
-    @FXML
-    private TableColumn<Result, String> blockNumber;
+    @FXML private TableColumn<Result, String> blockNumber;
 
-    @FXML
-    private TableColumn<Result, String> blockSize;
+    @FXML private TableColumn<Result, String> blockSize;
 
-    @FXML
-    private TableColumn<Result, String> associativity;
+    @FXML private TableColumn<Result, String> associativity;
 
-    @FXML
-    private TableColumn<Result, String> replacement;
+    @FXML private TableColumn<Result, String> replacement;
 
-    @FXML
-    private TableColumn<Result, String> writeHit;
+    @FXML private TableColumn<Result, String> writeHit;
 
-    @FXML
-    private TableColumn<Result, String> writeMiss;
+    @FXML private TableColumn<Result, String> writeMiss;
 
-    @FXML
-    private TableColumn<Result, String> cacheReadHitRate;
+    @FXML private TableColumn<Result, String> cacheReadHitRate;
 
-    @FXML
-    private TableColumn<Result, String> cacheWriteHitRate;
+    @FXML private TableColumn<Result, String> cacheWriteHitRate;
 
-    @FXML
-    private TableColumn<Result, String> cacheEvictions;
+    @FXML private TableColumn<Result, String> cacheEvictions;
 
 
     @FXML
@@ -74,11 +62,6 @@ public class MainController implements Initializable {
 
     @FXML
     private BorderPane borderPane;
-
-    private void AddToTable(Result result) {
-        tableResult.add(result);
-        tableView.setItems(tableResult);
-    }
 
     @FXML
     public void ShowNewSimulationDialog() {
@@ -103,5 +86,40 @@ public class MainController implements Initializable {
             Result result1 = controller.ProcessResults();
             AddToTable(result1);
         }
+    }
+
+    public void ExportToExcel(ActionEvent actionEvent) {
+       Writer writer = null;
+        try {
+            File file = new File("/media/tobias/Arbeitsplatz/Projekte/Cache-Simulator/Person.csv");
+            writer = new BufferedWriter(new FileWriter(file));
+
+            String text = "File Name" + "," + "Block Number" + "," + "Block Size" + "," + "Associativity" + "," + "Replacement"
+                    + "," + "Write Hit" + "," + "Write Miss" + "," + "Cache Read Hit Rate" + "," + "Cache Write Hit Rate"
+                    + "," + "Cache Evictions" + "\n";
+            writer.write(text);
+            for (Result results : tableResult) {
+                text = results.getFileName() + "," + results.getBlockNumber() + "," + results.getBlockSize() + "," + results.getAssociativity()
+                        + "," + results.getReplacement() + "," + results.getWriteHit() + "," + results.getWriteMiss() + "," + results.getCacheReadHitRate()
+                        + "," + results.getCacheWriteHitRate() + "," + results.getCacheEvictions();
+                writer.write(text);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        finally {
+
+            try {
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void AddToTable(Result result) {
+        tableResult.add(result);
+        tableView.setItems(tableResult);
     }
 }
