@@ -14,7 +14,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.example.Model.Result;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.DirectoryChooser;
 
 import java.io.*;
 import java.net.URL;
@@ -22,8 +21,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    @FXML
-    private TextField search;
 
     @FXML private Button exportButton;
     private ObservableList<Result> tableResult = FXCollections.observableArrayList();
@@ -110,9 +107,9 @@ public class MainController implements Initializable {
             fileChooser.setInitialDirectory(file.getParentFile());
             writer = new BufferedWriter(new FileWriter(file));
 
-            String text = "File Name" + "," + "Block Number" + "," + "Block Size" + "," + "Associativity" + "," + "Replacement"
-                    + "," + "Write Hit" + "," + "Write Miss" + "," + "Cache Read Hit Rate" + "," + "Cache Write Hit Rate"
-                    + "," + "Cache Evictions" + "\n";
+            String text = "File Name" + ";" + "Block Number" + ";" + "Block Size" + ";" + "Associativity" + ";" + "Replacement"
+                    + ";" + "Write Hit" + ";" + "Write Miss" + ";" + "Cache Read Hit Rate" + ";" + "Cache Write Hit Rate"
+                    + ";" + "Cache Evictions" + "\n";
             writer.write(text);
             for (Result results : tableResult) {
                 text = results.getFileName() + "," + results.getBlockNumber() + "," + results.getBlockSize() + "," + results.getAssociativity()
