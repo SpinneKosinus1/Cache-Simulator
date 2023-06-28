@@ -3,44 +3,71 @@ package org.example.Model;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Result {
-    private SimpleStringProperty fileName;
-    private SimpleStringProperty blockNumber;
-    private SimpleStringProperty blockSize;
-    private SimpleStringProperty associativity;
-    private SimpleStringProperty replacement;
-    private SimpleStringProperty writeHit;
-    private SimpleStringProperty writeMiss;
+    private final String fileName;
+    private final String blockNumber;
+    private final String blockSize;
+    private final String associativity;
+    private final String replacement;
+    private final String writeHit;
+    private final String writeMiss;
 
-    private SimpleStringProperty cacheReadHitRate;
-    private SimpleStringProperty cacheWriteHitRate;
-    private SimpleStringProperty cacheEvictions;
+    private final String cacheReadHitRate;
+    private final String cacheWriteHitRate;
+    private final String cacheEvictions;
 
     public Result(String fileName, String blockNumber, String blockSize, String associativity, String replacment,
                   String writeHit, String writeMiss, String cacheReadHitRate, String cacheWriteHitRate, String cacheEvictions) {
-        this.fileName = new SimpleStringProperty(fileName);
-        this.blockNumber = new SimpleStringProperty(blockNumber);
-        this.blockSize = new SimpleStringProperty(blockSize);
-        this.associativity = new SimpleStringProperty(associativity);
-        this.replacement = new SimpleStringProperty(replacment);
-        this.writeHit = new SimpleStringProperty(writeHit);
-        this.writeMiss = new SimpleStringProperty(writeMiss);
-        this.cacheReadHitRate = new SimpleStringProperty(cacheReadHitRate);
-        this.cacheWriteHitRate = new SimpleStringProperty(cacheWriteHitRate);
-        this.cacheEvictions = new SimpleStringProperty(cacheEvictions);
+        this.fileName = fileName;
+        this.blockNumber = blockNumber;
+        this.blockSize = blockSize;
+        this.associativity = associativity;
+        this.replacement = replacment;
+        this.writeHit = writeHit;
+        this.writeMiss = writeMiss;
+        this.cacheReadHitRate = cacheReadHitRate;
+        this.cacheWriteHitRate = cacheWriteHitRate;
+        this.cacheEvictions = cacheEvictions;
     }
 
-    // Getter
-    public String GetFileName() { return fileName.get(); }
-    public String GetBlockNumber() { return blockNumber.get(); }
-    public String GetBlockSize() { return blockSize.get(); }
-    public String GetAssociativity() { return associativity.get(); }
-    public String GetReplacement() { return replacement.get(); }
-    public String GetWriteHit() { return writeHit.get(); }
-    public String GetWriteMiss() { return writeMiss.get(); }
-    public String GetCacheReadHitRate() { return cacheReadHitRate.get(); }
-    public String GetCacheWriteHitRate() { return cacheWriteHitRate.get(); }
-    public String GetCacheEvictions() { return cacheEvictions.get(); }
+    public String getFileName() {
+        return fileName;
+    }
 
-    // Setter
-    public void SetFileName(String fileName) { this.fileName = new SimpleStringProperty(fileName); }
+    public String getBlockNumber() {
+        return blockNumber;
+    }
+
+    public String getBlockSize() {
+        return blockSize;
+    }
+
+    public String getAssociativity() {
+        return associativity;
+    }
+
+    public String getReplacement() {
+        return replacement;
+    }
+
+    public String getWriteHit() {
+        return writeHit;
+    }
+
+    public String getWriteMiss() {
+        return writeMiss;
+    }
+
+    public String getCacheReadHitRate() {
+        return cacheReadHitRate;
+    }
+
+    public String getCacheWriteHitRate() {
+        return cacheWriteHitRate;
+    }
+
+    public String getCacheEvictions() {
+        return cacheEvictions;
+    }
+
+
 }

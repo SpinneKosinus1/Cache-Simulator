@@ -15,6 +15,7 @@ import java.io.File;
 public class SimulationController {
     // FilePath
     private String filePath;
+    private String fileName;
 
     @FXML
     private DialogPane borderPane;
@@ -47,6 +48,7 @@ public class SimulationController {
             File file = FileChooser.showOpenDialog(stage);
             FileChooser.setInitialDirectory(file.getParentFile());
             filePath = file.getPath();
+            fileName = file.getName();
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -71,12 +73,8 @@ public class SimulationController {
 
             String cacheEvictions = String.valueOf(cache.GetCacheEvictions());
 
-            System.out.println(cacheReadHit);
-            System.out.println(cacheWriteHit);
-            System.out.println(cacheEvictions);
 
-
-            return new Result("Test", BlockNumber.getText(), BlockSize.getText(), Associativity.getText(),
+            return new Result(fileName, BlockNumber.getText(), BlockSize.getText(), Associativity.getText(),
                     Replacement.getValue().toString(), WriteHit.getValue().toString(), WriteMiss.getValue().toString(),
                     cacheReadHit, cacheWriteHit, cacheEvictions);
         }

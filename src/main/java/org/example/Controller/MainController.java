@@ -1,9 +1,12 @@
 package org.example.Controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.SimpleSelector;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -11,12 +14,15 @@ import org.example.Model.Result;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
+    private ObservableList<Result> tableResult = FXCollections.observableArrayList();
+
+    @FXML
+    private TableView<Result> tableView;
+
     @FXML
     private TableColumn<Result, String> fileName;
 
@@ -47,21 +53,21 @@ public class MainController {
     @FXML
     private TableColumn<Result, String> cacheEvictions;
 
-    @FXML
-    private TableView<Result> tableView;
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        fileName.setCellValueFactory(new PropertyValueFactory<Result, String>("fileName"));
-        blockNumber.setCellValueFactory(new PropertyValueFactory<Result, String>("blockNumber"));
-        blockSize.setCellValueFactory(new PropertyValueFactory<Result, String>("blockSize"));
-        associativity.setCellValueFactory(new PropertyValueFactory<Result, String>("associativity"));
-        replacement.setCellValueFactory(new PropertyValueFactory<Result, String>("replacement"));
-        writeHit.setCellValueFactory(new PropertyValueFactory<Result, String>("writeHit"));
-        writeMiss.setCellValueFactory(new PropertyValueFactory<Result, String>("writeMiss"));
-        cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheReadHitRate"));
-        cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheReadMissRate"));
-        cacheEvictions.setCellValueFactory(new PropertyValueFactory<Result, String>("cacheEvictions"));
+        fileName.setCellValueFactory(new PropertyValueFactory<>("fileName"));
+        blockNumber.setCellValueFactory(new PropertyValueFactory<>("blockNumber"));
+        blockSize.setCellValueFactory(new PropertyValueFactory<>("blockSize"));
+        associativity.setCellValueFactory(new PropertyValueFactory<>("associativity"));
+        replacement.setCellValueFactory(new PropertyValueFactory<>("replacement"));
+        writeHit.setCellValueFactory(new PropertyValueFactory<>("writeHit"));
+        writeMiss.setCellValueFactory(new PropertyValueFactory<>("writeMiss"));
+        cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheReadHitRate"));
+        cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheWriteHitRate"));
+        cacheEvictions.setCellValueFactory(new PropertyValueFactory<>("cacheEvictions"));
+
+        tableView.setItems(tableResult);
     }
 
     SimulationController controller;
@@ -70,9 +76,8 @@ public class MainController {
     private BorderPane borderPane;
 
     private void AddToTable(Result result) {
-        ObservableList<Result> results = FXCollections.observableArrayList(result);
-        results.add(result);
-        tableView.setItems(results);
+        tableResult.add(result);
+        tableView.setItems(tableResult);
     }
 
     @FXML
