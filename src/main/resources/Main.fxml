@@ -19,9 +19,9 @@
     <center>
         <TableView fx:id="tableView">
             <columns>
-                <TableColumn text="File" fx:id="fileName" prefWidth="50"/>
-                <TableColumn text="Block Number" fx:id="blockNumber" prefWidth="150"/>
-                <TableColumn text="Block Size" fx:id="blockSize" prefWidth="150"/>
+                <TableColumn text="File" fx:id="fileName" prefWidth="100"/>
+                <TableColumn text="Block Number" fx:id="blockNumber" prefWidth="100"/>
+                <TableColumn text="Block Size" fx:id="blockSize" prefWidth="100"/>
                 <TableColumn text="Associativity" fx:id="associativity" prefWidth="120"/>
                 <TableColumn text="Replacement" fx:id="replacement" prefWidth="120"/>
                 <TableColumn text="Write Hit" fx:id="writeHit" prefWidth="120"/>
