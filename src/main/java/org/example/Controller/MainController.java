@@ -1,5 +1,6 @@
 package org.example.Controller;
 
+import com.sun.glass.ui.CommonDialogs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,7 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import org.example.Model.Result;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.DirectoryChooser;
 
 import java.io.*;
 import java.net.URL;
@@ -17,6 +22,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    @FXML
+    private TextField search;
+
     @FXML private Button exportButton;
     private ObservableList<Result> tableResult = FXCollections.observableArrayList();
 
@@ -90,9 +98,16 @@ public class MainController implements Initializable {
     }
 
     public void ExportToExcel(ActionEvent actionEvent) {
-       Writer writer = null;
+        Writer writer = null;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Comma-separated values (CSV) file", "*.csv"));
+        fileChooser.setInitialFileName("Results.csv");
+        Window stage = borderPane.getScene().getWindow();
+        fileChooser.setTitle("Save Results");
+
         try {
-            File file = new File("/CacheResults.csv");
+            File file = fileChooser.showSaveDialog(stage);
+            fileChooser.setInitialDirectory(file.getParentFile());
             writer = new BufferedWriter(new FileWriter(file));
 
             String text = "File Name" + "," + "Block Number" + "," + "Block Size" + "," + "Associativity" + "," + "Replacement"

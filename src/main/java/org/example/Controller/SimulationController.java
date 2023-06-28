@@ -40,13 +40,13 @@ public class SimulationController {
 
     public void LoadFile(ActionEvent actionEvent) {
         // get the file selected
-        FileChooser FileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load TraceFile");
         Window stage = borderPane.getScene().getWindow();
-        FileChooser.setTitle("Load TraceFile");
 
         try {
-            File file = FileChooser.showOpenDialog(stage);
-            FileChooser.setInitialDirectory(file.getParentFile());
+            File file = fileChooser.showOpenDialog(stage);
+            fileChooser.setInitialDirectory(file.getParentFile());
             filePath = file.getPath();
             fileName = file.getName();
         }
