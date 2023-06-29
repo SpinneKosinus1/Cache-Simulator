@@ -33,6 +33,7 @@ public class DataSaver extends DataHandler {
                     }
                 }
 
+                memory.SetRamValue(SaveValue, iOffset, tag + index);
                 memory.getCache().AddCacheWriteHit(false);
                 return memory;
             }
@@ -51,6 +52,7 @@ public class DataSaver extends DataHandler {
                     }
                 }
 
+                memory.SetRamValue(SaveValue, iOffset, tag + index);
                 memory.getCache().AddCacheWriteHit(false);
                 return memory;
             }

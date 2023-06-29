@@ -50,7 +50,7 @@
                 </items>
             </ComboBox>
 
-            <Button text="Load Trace File" GridPane.rowIndex="12" onAction="#LoadFile"/>
+            <Button text="Load Trace File" GridPane.rowIndex="12" onAction="#LoadFile" fx:id="loadFile"/>
         </GridPane>
     </content>
 </DialogPane>

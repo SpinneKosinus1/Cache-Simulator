@@ -38,6 +38,9 @@ public class SimulationController {
     @FXML
     private ComboBox WriteMiss;
 
+    @FXML
+    private Button loadFile;
+
     public void LoadFile(ActionEvent actionEvent) {
         // get the file selected
         FileChooser fileChooser = new FileChooser();
@@ -47,8 +50,12 @@ public class SimulationController {
         try {
             File file = fileChooser.showOpenDialog(stage);
             fileChooser.setInitialDirectory(file.getParentFile());
-            filePath = file.getPath();
-            fileName = file.getName();
+            if (file.isFile()) {
+                filePath = file.getPath();
+                fileName = file.getName();
+                loadFile.setText(file.getName());
+            }
+
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
