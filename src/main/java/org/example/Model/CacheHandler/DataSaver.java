@@ -150,7 +150,6 @@ public class DataSaver extends DataHandler {
 
                         List<Integer> ramData =  memory.GetRamBlock(tag + index);
                         memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).setCacheData(ramData);
-
                         memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).SetSingleCacheData(iOffset, SaveValue);
 
                         memory.getCache().AddCacheWriteHit(false);
