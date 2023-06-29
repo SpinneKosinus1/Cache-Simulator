@@ -1,18 +1,20 @@
 package org.example.Model;
 
-import org.example.Model.CacheData.*;
+import org.example.Model.Memory.*;
 import org.example.Model.CacheHandler.DataHandler;
 import org.example.Model.CacheHandler.LoadData;
 import org.example.Model.CacheHandler.SaveData;
 import org.example.Model.Utilities.ConvertNumber;
 import org.example.Model.Utilities.FileLoader;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Model {
     // Classes
     DataHandler dataHandler;
-    Cache cache;
+    Memory memory;
 
     // Variables
     private final int blockNumber, blockSize, associativity;
@@ -56,9 +58,16 @@ public class Model {
     public Cache StartSimulation(String FilePath) {
         List<String> TraceFile = FileLoader.GetFileContent(FilePath);
         CalcLength(TraceFile.get(0));
-        cache = new Cache((blockNumber / associativity), associativity);
+        memory = new Memory((blockNumber / associativity), associativity, blockSize);
         String tag, index, offset;
         long loopCounter = 0;
+
+//        List<Integer> ramData = new ArrayList<>();
+//        ramData.add(5);
+//        ramData.add(4);
+//        ramData.add(99);
+//        ramData.add(76);
+//        memory.SetRamBlock(ramData, "Testadresse");
 
         for (String TraceLine : TraceFile) {
             int operation = 99;
@@ -93,19 +102,31 @@ public class Model {
                 }
             }
 
+            if (memory.GetRamBlock(tag + index) == null) {
+                List<Integer> ramData = new ArrayList<>();
+                Random randomGenerator = new Random();
+
+                for (int i = 0; i < blockSize; i++) {
+                    int value = randomGenerator.nextInt(999);
+                    ramData.add(value);
+                }
+
+                memory.SetRamBlock(ramData, tag + index);
+            }
+
             if (operation == 0) { // Execute, when loading data
                 dataHandler = new LoadData();
-                cache = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
-                        writeHit, writeMiss, cache);
+                memory = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
+                        writeHit, writeMiss, memory);
             }
             if (operation == 1) {
                 dataHandler = new SaveData();
-                cache = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
-                        writeHit, writeMiss, cache);
+                memory = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
+                        writeHit, writeMiss, memory);
             }
 
             ++loopCounter;
         }
-        return cache;
+        return memory.getCache();
     }
 }

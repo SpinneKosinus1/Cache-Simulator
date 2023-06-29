@@ -1,4 +1,4 @@
-package org.example.Model.CacheData;
+package org.example.Model.Memory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +11,14 @@ public class Cache {
     private static List<Boolean> cacheReadHit, cacheWriteHit;
     private int cacheEvictions;
 
-    public Cache(int index, int associativity) {
+    public Cache(int index, int associativity, int blockSize) {
         cache = new ArrayList<>();
         cacheReadHit = new ArrayList<>();
         cacheWriteHit = new ArrayList<>();
         cacheEvictions = 0;
 
         for (int i = 0; i < index; i++) {
-            CacheSet cacheSet = new CacheSet(associativity);
+            CacheSet cacheSet = new CacheSet(associativity, blockSize);
             cache.add(cacheSet);
         }
     }

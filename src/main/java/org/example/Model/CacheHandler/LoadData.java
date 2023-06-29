@@ -1,13 +1,14 @@
 package org.example.Model.CacheHandler;
 
-import org.example.Model.CacheData.Cache;
+import org.example.Model.Memory.Cache;
+import org.example.Model.Memory.Memory;
 import org.example.Model.Utilities.ConvertNumber;
 import java.util.Random;
 
 public class LoadData extends DataHandler {
     @Override
-    public Cache CacheDataOperation(long loopCounter, String tag, String index, int associativity,
-                                    String Replacement, String writeHit, String writeMiss, Cache cache) {
+    public Memory CacheDataOperation(long loopCounter, String tag, String index, int associativity,
+                                     String Replacement, String writeHit, String writeMiss, Memory memory) {
 
         int iIndex = ConvertNumber.binaryToDecimal(index);
         int iTag = ConvertNumber.binaryToDecimal(tag);
@@ -17,12 +18,12 @@ public class LoadData extends DataHandler {
         /*************************************************************************/
 
         for (int i = 0; i < associativity; i++) {
-            if (cache.GetCacheSet(iIndex).GetCacheBlock(i).GetTag() == iTag &&
-                    cache.GetCacheSet(iIndex).GetCacheBlock(i).GetValidBit() == 1) {
+            if (memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).GetTag() == iTag &&
+                    memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).GetValidBit() == 1) {
 
-                cache.GetCacheSet(iIndex).GetCacheBlock(i).SetLastTimeUsed(loopCounter);
-                cache.AddCacheReadHit(true);
-                return cache;
+                memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).SetLastTimeUsed(loopCounter);
+                memory.getCache().AddCacheReadHit(true);
+                return memory;
             }
         }
 
@@ -32,13 +33,13 @@ public class LoadData extends DataHandler {
         /*************************************************************************/
 
         for (int i = 0; i < associativity; i++) {
-            if (cache.GetCacheSet(iIndex).GetCacheBlock(i).GetTag() == 0) {
-                cache.GetCacheSet(iIndex).GetCacheBlock(i).SetTag(iTag);
-                cache.GetCacheSet(iIndex).GetCacheBlock(i).SetValidBit(1);
-                cache.GetCacheSet(iIndex).GetCacheBlock(i).SetCreatedCount(loopCounter);
-                cache.GetCacheSet(iIndex).GetCacheBlock(i).SetLastTimeUsed(loopCounter);
-                cache.AddCacheReadHit(false);
-                return cache;
+            if (memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).GetTag() == 0) {
+                memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).SetTag(iTag);
+                memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).SetValidBit(1);
+                memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).SetCreatedCount(loopCounter);
+                memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).SetLastTimeUsed(loopCounter);
+                memory.getCache().AddCacheReadHit(false);
+                return memory;
             }
         }
 
@@ -47,7 +48,7 @@ public class LoadData extends DataHandler {
         /*************************************************************************/
 
         if (associativity == 1) {
-            return getCache(loopCounter, cache, iIndex, iTag, 0);
+            return GetMemory(loopCounter, memory, iIndex, iTag, 0);
         }
 
         // Now we need to replace the data with a new one
@@ -55,39 +56,39 @@ public class LoadData extends DataHandler {
             case "Random" -> {
                 Random randomGenerator = new Random();
                 int position = randomGenerator.nextInt(associativity - 1);
-                return getCache(loopCounter, cache, iIndex, iTag, position);
+                return GetMemory(loopCounter, memory, iIndex, iTag, position);
             }
             case "FIFO" -> {
                 int position = 0;
                 for (int i = 1; i < associativity; i++) {
-                    if (cache.GetCacheSet(iIndex).GetCacheBlock(i).GetCreatedCount() <
-                            cache.GetCacheSet(iIndex).GetCacheBlock(position).GetCreatedCount()) {
+                    if (memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).GetCreatedCount() <
+                            memory.getCache().GetCacheSet(iIndex).GetCacheBlock(position).GetCreatedCount()) {
                         position = i;
                     }
                 }
-                return getCache(loopCounter, cache, iIndex, iTag, position);
+                return GetMemory(loopCounter, memory, iIndex, iTag, position);
             }
             case "LRU" -> {
                 int position = 0;
                 for (int i = 1; i < associativity; i++) {
-                    if (cache.GetCacheSet(iIndex).GetCacheBlock(i).GetLastTimeUsed() <
-                            cache.GetCacheSet(iIndex).GetCacheBlock(position).GetLastTimeUsed()) {
+                    if (memory.getCache().GetCacheSet(iIndex).GetCacheBlock(i).GetLastTimeUsed() <
+                            memory.getCache().GetCacheSet(iIndex).GetCacheBlock(position).GetLastTimeUsed()) {
                         position = i;
                     }
                 }
-                return getCache(loopCounter, cache, iIndex, iTag, position);
+                return GetMemory(loopCounter, memory, iIndex, iTag, position);
             }
         }
-        return cache;
+        return memory;
     }
 
-    private Cache getCache(long loopCounter, Cache cache, int iIndex, int iTag, int position) {
-        cache.GetCacheSet(iIndex).GetCacheBlock(position).SetTag(iTag);
-        cache.GetCacheSet(iIndex).GetCacheBlock(position).SetValidBit(1);
-        cache.GetCacheSet(iIndex).GetCacheBlock(position).SetCreatedCount(loopCounter);
-        cache.GetCacheSet(iIndex).GetCacheBlock(position).SetLastTimeUsed(loopCounter);
-        cache.AddCacheReadHit(false);
-        cache.AddCacheEvictions();
-        return cache;
+    private Memory GetMemory(long loopCounter, Memory memory, int iIndex, int iTag, int position) {
+        memory.getCache().GetCacheSet(iIndex).GetCacheBlock(position).SetTag(iTag);
+        memory.getCache().GetCacheSet(iIndex).GetCacheBlock(position).SetValidBit(1);
+        memory.getCache().GetCacheSet(iIndex).GetCacheBlock(position).SetCreatedCount(loopCounter);
+        memory.getCache().GetCacheSet(iIndex).GetCacheBlock(position).SetLastTimeUsed(loopCounter);
+        memory.getCache().AddCacheReadHit(false);
+        memory.getCache().AddCacheEvictions();
+        return memory;
     }
 }

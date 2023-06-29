@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import org.example.Model.CacheData.Cache;
+import org.example.Model.Memory.Cache;
 import org.example.Model.Model;
 import org.example.Model.Result;
 
