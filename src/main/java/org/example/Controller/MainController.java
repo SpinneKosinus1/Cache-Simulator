@@ -114,9 +114,9 @@ public class MainController implements Initializable {
                     + ";" + "Cache Evictions" + "\n";
             writer.write(text);
             for (Result results : tableResult) {
-                text = results.getFileName() + "," + results.getBlockNumber() + "," + results.getBlockSize() + "," + results.getAssociativity()
-                        + "," + results.getReplacement() + "," + results.getWriteHit() + "," + results.getWriteMiss() + "," + results.getCacheReadHitRate()
-                        + "," + results.getCacheWriteHitRate() + "," + results.getCacheEvictions() + "\n";
+                text = results.getFileName() + ";" + results.getBlockNumber() + ";" + results.getBlockSize() + ";" + results.getAssociativity()
+                        + ";" + results.getReplacement() + ";" + results.getWriteHit() + ";" + results.getWriteMiss() + ";" + results.getCacheReadHitRate()
+                        + ";" + results.getCacheWriteHitRate() + ";" + results.getCacheEvictions() + "\n";
                 writer.write(text);
             }
         } catch (Exception ex) {
