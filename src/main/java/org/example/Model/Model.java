@@ -2,8 +2,8 @@ package org.example.Model;
 
 import org.example.Model.Memory.*;
 import org.example.Model.CacheHandler.DataHandler;
-import org.example.Model.CacheHandler.LoadData;
-import org.example.Model.CacheHandler.SaveData;
+import org.example.Model.CacheHandler.DataLoader;
+import org.example.Model.CacheHandler.DataSaver;
 import org.example.Model.Utilities.ConvertNumber;
 import org.example.Model.Utilities.FileLoader;
 
@@ -102,6 +102,7 @@ public class Model {
                 }
             }
 
+            // Adding a ramblock for future calculations
             if (memory.GetRamBlock(tag + index) == null) {
                 List<Integer> ramData = new ArrayList<>();
                 Random randomGenerator = new Random();
@@ -115,13 +116,13 @@ public class Model {
             }
 
             if (operation == 0) { // Execute, when loading data
-                dataHandler = new LoadData();
-                memory = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
+                dataHandler = new DataLoader();
+                memory = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, offset, replacment,
                         writeHit, writeMiss, memory);
             }
             if (operation == 1) {
-                dataHandler = new SaveData();
-                memory = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, replacment,
+                dataHandler = new DataSaver();
+                memory = dataHandler.CacheDataOperation(loopCounter, tag, index, associativity, offset, replacment,
                         writeHit, writeMiss, memory);
             }
 

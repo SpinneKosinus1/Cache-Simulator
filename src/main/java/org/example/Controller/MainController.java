@@ -90,7 +90,9 @@ public class MainController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             controller = fxmlloader.getController();
             Result result1 = controller.ProcessResults();
-            AddToTable(result1);
+            if (result1 != null) {
+                AddToTable(result1);
+            }
         }
     }
 
