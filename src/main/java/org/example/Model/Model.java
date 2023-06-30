@@ -62,13 +62,6 @@ public class Model {
         String tag, index, offset;
         long loopCounter = 0;
 
-//        List<Integer> ramData = new ArrayList<>();
-//        ramData.add(5);
-//        ramData.add(4);
-//        ramData.add(99);
-//        ramData.add(76);
-//        memory.SetRamBlock(ramData, "Testadresse");
-
         for (String TraceLine : TraceFile) {
             int operation = 99;
             String address = "";
@@ -102,7 +95,7 @@ public class Model {
                 }
             }
 
-            // Adding a ramblock for future calculations
+            // Adding a random RamBlock for future calculations
             if (memory.GetRamBlock(tag + index) == null) {
                 List<Integer> ramData = new ArrayList<>();
                 Random randomGenerator = new Random();
