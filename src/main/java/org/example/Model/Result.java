@@ -1,7 +1,5 @@
 package org.example.Model;
 
-import javafx.beans.property.SimpleStringProperty;
-
 public class Result {
     private final String fileName;
     private final String blockNumber;
@@ -11,12 +9,12 @@ public class Result {
     private final String writeHit;
     private final String writeMiss;
 
-    private final String cacheReadHitRate;
-    private final String cacheWriteHitRate;
+    private final String cacheReadMissRate;
+    private final String cacheWriteMissRate;
     private final String cacheEvictions;
 
     public Result(String fileName, String blockNumber, String blockSize, String associativity, String replacment,
-                  String writeHit, String writeMiss, String cacheReadHitRate, String cacheWriteHitRate, String cacheEvictions) {
+                  String writeHit, String writeMiss, String cacheReadMissRate, String cacheWriteMissRate, String cacheEvictions) {
         this.fileName = fileName;
         this.blockNumber = blockNumber;
         this.blockSize = blockSize;
@@ -24,8 +22,8 @@ public class Result {
         this.replacement = replacment;
         this.writeHit = writeHit;
         this.writeMiss = writeMiss;
-        this.cacheReadHitRate = cacheReadHitRate;
-        this.cacheWriteHitRate = cacheWriteHitRate;
+        this.cacheReadMissRate = cacheReadMissRate;
+        this.cacheWriteMissRate = cacheWriteMissRate;
         this.cacheEvictions = cacheEvictions;
     }
 
@@ -57,12 +55,12 @@ public class Result {
         return writeMiss;
     }
 
-    public String getCacheReadHitRate() {
-        return cacheReadHitRate;
+    public String getCacheReadMissRate() {
+        return cacheReadMissRate;
     }
 
-    public String getCacheWriteHitRate() {
-        return cacheWriteHitRate;
+    public String getCacheWriteMissRate() {
+        return cacheWriteMissRate;
     }
 
     public String getCacheEvictions() {

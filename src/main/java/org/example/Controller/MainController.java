@@ -1,6 +1,5 @@
 package org.example.Controller;
 
-import com.sun.glass.ui.CommonDialogs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,8 +56,8 @@ public class MainController implements Initializable {
         replacement.setCellValueFactory(new PropertyValueFactory<>("replacement"));
         writeHit.setCellValueFactory(new PropertyValueFactory<>("writeHit"));
         writeMiss.setCellValueFactory(new PropertyValueFactory<>("writeMiss"));
-        cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheReadHitRate")); // Cache Misses (false value name)
-        cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheWriteHitRate")); // Cache Misses (false value name)
+        cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheReadMissRate")); // Cache Misses (false value name)
+        cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheWriteMissRate")); // Cache Misses (false value name)
         cacheEvictions.setCellValueFactory(new PropertyValueFactory<>("cacheEvictions"));
 
         tableView.setItems(tableResult);
@@ -115,8 +114,8 @@ public class MainController implements Initializable {
             writer.write(text);
             for (Result results : tableResult) {
                 text = results.getFileName() + ";" + results.getBlockNumber() + ";" + results.getBlockSize() + ";" + results.getAssociativity()
-                        + ";" + results.getReplacement() + ";" + results.getWriteHit() + ";" + results.getWriteMiss() + ";" + results.getCacheReadHitRate()
-                        + ";" + results.getCacheWriteHitRate() + ";" + results.getCacheEvictions() + "\n";
+                        + ";" + results.getReplacement() + ";" + results.getWriteHit() + ";" + results.getWriteMiss() + ";" + results.getCacheReadMissRate()
+                        + ";" + results.getCacheWriteMissRate() + ";" + results.getCacheEvictions() + "\n";
                 writer.write(text);
             }
         } catch (Exception ex) {
