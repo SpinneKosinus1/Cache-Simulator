@@ -27,8 +27,8 @@
                 <TableColumn text="Replacement" fx:id="replacement" prefWidth="120"/>
                 <TableColumn text="Write Hit" fx:id="writeHit" prefWidth="120"/>
                 <TableColumn text="Write Miss" fx:id="writeMiss" prefWidth="120"/>
-                <TableColumn text="Cache Read Hit Rate" fx:id="cacheReadHitRate" prefWidth="150"/>
-                <TableColumn text="Cache Write Hit Rate" fx:id="cacheWriteHitRate" prefWidth="150"/>
+                <TableColumn text="Cache Read Miss Rate" fx:id="cacheReadHitRate" prefWidth="150"/>
+                <TableColumn text="Cache Write Miss Rate" fx:id="cacheWriteHitRate" prefWidth="150"/>
                 <TableColumn text="Cache Evictions" fx:id="cacheEvictions" prefWidth="150"/>
             </columns>
         </TableView>

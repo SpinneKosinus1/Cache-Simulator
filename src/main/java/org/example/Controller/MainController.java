@@ -57,8 +57,8 @@ public class MainController implements Initializable {
         replacement.setCellValueFactory(new PropertyValueFactory<>("replacement"));
         writeHit.setCellValueFactory(new PropertyValueFactory<>("writeHit"));
         writeMiss.setCellValueFactory(new PropertyValueFactory<>("writeMiss"));
-        cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheReadHitRate"));
-        cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheWriteHitRate"));
+        cacheReadHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheReadHitRate")); // Cache Misses (false value name)
+        cacheWriteHitRate.setCellValueFactory(new PropertyValueFactory<>("cacheWriteHitRate")); // Cache Misses (false value name)
         cacheEvictions.setCellValueFactory(new PropertyValueFactory<>("cacheEvictions"));
 
         tableView.setItems(tableResult);
@@ -110,7 +110,7 @@ public class MainController implements Initializable {
             writer = new BufferedWriter(new FileWriter(file));
 
             String text = "File Name" + ";" + "Block Number" + ";" + "Block Size" + ";" + "Associativity" + ";" + "Replacement"
-                    + ";" + "Write Hit" + ";" + "Write Miss" + ";" + "Cache Read Hit Rate" + ";" + "Cache Write Hit Rate"
+                    + ";" + "Write Hit" + ";" + "Write Miss" + ";" + "Cache Read Miss Rate" + ";" + "Cache Write Miss Rate"
                     + ";" + "Cache Evictions" + "\n";
             writer.write(text);
             for (Result results : tableResult) {
