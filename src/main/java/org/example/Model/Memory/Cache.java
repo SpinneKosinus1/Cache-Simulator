@@ -38,11 +38,31 @@ public class Cache {
         return ((double) cacheHitNumber / cacheReadHit.size()) * 100;
     }
 
+    public double GetCacheReadMissPercentage() {
+        int cacheHitNumber = 0;
+        for (Boolean aBoolean : cacheReadHit) {
+            if (!aBoolean) {
+                ++cacheHitNumber;
+            }
+        }
+        return ((double) cacheHitNumber / cacheReadHit.size()) * 100;
+    }
+
     public void AddCacheWriteHit(Boolean cacheHit) { cacheWriteHit.add(cacheHit); }
     public double GetCacheWriteHitPercentage() {
         int cacheHitNumber = 0;
         for (Boolean aBoolean : cacheWriteHit) {
             if (aBoolean) {
+                ++cacheHitNumber;
+            }
+        }
+        return ((double) cacheHitNumber / cacheWriteHit.size()) * 100;
+    }
+
+    public double GetCacheWriteMissPercentage() {
+        int cacheHitNumber = 0;
+        for (Boolean aBoolean : cacheWriteHit) {
+            if (!aBoolean) {
                 ++cacheHitNumber;
             }
         }

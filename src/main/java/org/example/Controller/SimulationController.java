@@ -70,11 +70,11 @@ public class SimulationController {
 
             Cache cache = Model.StartSimulation(filePath);
 
-            int temp = (int) (cache.GetCacheReadHitPercentage() * 100);
+            int temp = (int) (cache.GetCacheReadMissPercentage() * 100);
             double CacheReadHit = ((double) temp) / 100;
             String cacheReadHit = CacheReadHit + "%";
 
-            temp = (int) (cache.GetCacheWriteHitPercentage() * 100);
+            temp = (int) (cache.GetCacheWriteMissPercentage() * 100);
             double CacheWriteHit = ((double) temp) / 100;
             String cacheWriteHit = CacheWriteHit + "%";
 
